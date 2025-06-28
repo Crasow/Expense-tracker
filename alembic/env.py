@@ -1,11 +1,11 @@
 import asyncio
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool  # <--- sync
+from sqlalchemy import engine_from_config, pool
 from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 
 from expense_tracker.models.base import Base
-from expense_tracker.models import user  # обязательно
+from expense_tracker.models import user
 
 config = context.config
 
@@ -14,7 +14,6 @@ if config.config_file_name is not None:
 
 target_metadata = Base.metadata
 
-# 💡 Два движка
 ASYNC_DB_URL = config.get_main_option("sqlalchemy.url")
 SYNC_DB_URL = ASYNC_DB_URL.replace("asyncpg", "psycopg2")
 
