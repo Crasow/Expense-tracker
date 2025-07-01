@@ -1,5 +1,4 @@
-from pydantic import BaseModel, EmailStr
-from uuid import UUID
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserBase(BaseModel):
@@ -8,8 +7,8 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    pass
+    password: str = Field(..., min_length=8, max_length=100)
 
 
 class UserRead(UserBase):
-    id: UUID
+    id: int
