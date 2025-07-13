@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 
 from expense_tracker.models.base import Base
-from expense_tracker.models import user
+from expense_tracker.models import user, balance_change, category
 
 config = context.config
 
