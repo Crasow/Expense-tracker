@@ -85,3 +85,6 @@ alembic/versions/*.pyc
 
 # Windows
 Thumbs.db
+
+# test_db_connection.py
+test_db_connection.py
