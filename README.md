@@ -20,6 +20,12 @@ poetry run uvicorn expense_tracker.main:app --reload
 alembic upgrade head
 ```
 
+Для создания новой миграции Alembic используйте:
+
+```bash
+alembic revision --autogenerate -m "описание миграции"
+```
+
 ## Требования
 
 - PostgreSQL сервер должен быть запущен
