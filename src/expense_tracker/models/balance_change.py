@@ -11,8 +11,8 @@ class BalanceChange(Base):
     __tablename__ = "balance_changes"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    category_id = Column(Integer, ForeignKey("categories.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
     amount = Column(Float, nullable=False)
     description = Column(String, nullable=True)
     date = Column(DateTime(timezone=True), nullable=False, server_default=func.now())

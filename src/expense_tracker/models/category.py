@@ -19,7 +19,7 @@ class Category(Base):
     icon_url = Column(String, nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     description = Column(String, nullable=True)
-    repetition = Column(Enum(RepetitionType), nullable=True)
+    # repetition = Column(Enum(RepetitionType), nullable=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
