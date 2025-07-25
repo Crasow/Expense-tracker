@@ -1,9 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from expense_tracker.models.balance_change import BalanceChange
 from expense_tracker.schemas.balance_change import (
-    BalanceChangeBase,
     BalanceChangeCreate,
-    BalanceChangeRead,
     BalanceChangeUpdate,
 )
 from expense_tracker.crud.category import get_category_by_id
@@ -22,7 +20,7 @@ async def create_balance_change(
     return balance_change
 
 
-async def get_balance_change_by_id(
+async def get_balance_change(
     db: AsyncSession, balance_change_id: int
 ) -> BalanceChange:
     result = await db.execute(
@@ -31,7 +29,7 @@ async def get_balance_change_by_id(
     return result.scalar_one_or_none()
 
 
-async def get_balance_changes_by_user_id(
+async def get_balance_changes(
     db: AsyncSession, user_id: int, skip: int = 0, limit: int = 10
 ) -> List[BalanceChange]:
     result = await db.execute(
@@ -46,7 +44,7 @@ async def get_balance_changes_by_user_id(
 async def update_balance_change(
     db: AsyncSession, balance_change_id: int, balance_change_data: BalanceChangeUpdate
 ) -> BalanceChange:
-    balance_change = await get_balance_change_by_id(db, balance_change_id)
+    balance_change = await get_balance_change(db, balance_change_id)
     if not balance_change:
         raise HTTPException(status_code=404, detail="Balance change not found")
 
@@ -66,7 +64,7 @@ async def update_balance_change(
 
 
 async def delete_balance_change(db: AsyncSession, balance_change_id: int) -> None:
-    balance_change = await get_balance_change_by_id(db, balance_change_id)
+    balance_change = await get_balance_change(db, balance_change_id)
     if not balance_change:
         raise HTTPException(status_code=404, detail="Balance change not found")
     await db.delete(balance_change)
