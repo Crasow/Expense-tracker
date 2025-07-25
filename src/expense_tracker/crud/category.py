@@ -20,20 +20,20 @@ async def create_category(
     return category
 
 
-async def get_categories_by_user_id(db: AsyncSession, user_id: int) -> List[Category]:
+async def get_categories(db: AsyncSession, user_id: int) -> List[Category]:
     result = await db.execute(select(Category).where(Category.user_id == user_id))
     return result.scalars().all()
 
 
-async def get_category_by_id(db: AsyncSession, category_id: int) -> Category:
+async def get_category(db: AsyncSession, category_id: int) -> Category:
     result = await db.execute(select(Category).where(Category.id == category_id))
     return result.scalar_one_or_none()
 
 
-async def update_category_by_id(
+async def update_category(
     db: AsyncSession, category_id: int, category_data: CategoryUpdate
 ) -> Category:
-    category = await get_category_by_id(db, category_id)
+    category = await get_category(db, category_id)
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
 
@@ -46,8 +46,8 @@ async def update_category_by_id(
     return category
 
 
-async def delete_category_by_id(db: AsyncSession, category_id: int) -> None:
-    category = await get_category_by_id(db, category_id)
+async def delete_category(db: AsyncSession, category_id: int) -> None:
+    category = await get_category(db, category_id)
 
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
